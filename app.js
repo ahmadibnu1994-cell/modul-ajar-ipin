@@ -2,7 +2,7 @@
 // GANTI INI DENGAN API KEY GEMINI KAMU
 // Dapatkan di: aistudio.google.com/apikey
 // =============================================
-const GEMINI_API_KEY = "AQ.Ab8RN6II6MqFSPg3R5aq8Gv-6NwlN93fyxcv1mx_3KXWE3OOEA" ;
+const GEMINI_API_KEY = 'AQ.Ab8RN6II6MqFSPg3R5aq8Gv-6NwlN93fyxcv1mx_3KXWE3OOEA' ;
 // =============================================
 
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${AQ.Ab8RN6II6MqFSPg3R5aq8Gv-6NwlN93fyxcv1mx_3KXWE3OOEA}`;
