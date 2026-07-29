@@ -166,7 +166,7 @@ async function generate() {
         'X-Title': 'Generator Modul Ajar SD IPIN'
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        model: 'meta-llama/llama-3.1-8b-instruct',
         messages: [{ role: 'user', content: buildPrompt(data) }],
         max_tokens: 8192
       })
