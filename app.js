@@ -1,11 +1,9 @@
 // =============================================
-// GANTI INI DENGAN API KEY GEMINI KAMU
-// Dapatkan di: aistudio.google.com/apikey
+// GANTI INI DENGAN API KEY OPENROUTER KAMU
+// Dapatkan di: openrouter.ai/keys
 // =============================================
-const GEMINI_API_KEY = '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';
+const OPENROUTER_API_KEY = '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';
 // =============================================
-
-const GEMINI_URL = `https://openrouter.ai/api/v1/chat/completions`;
 
 let currentLevel = 'Sedang';
 
@@ -159,12 +157,18 @@ async function generate() {
   }, 2500);
 
   try {
-    const res = await fetch(GEMINI_URL, {
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+        'HTTP-Referer': 'https://modul-ajar-ipin.vercel.app',
+        'X-Title': 'Generator Modul Ajar SD IPIN'
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: buildPrompt(data) }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 8192 }
+        model: 'google/gemini-2.0-flash-exp:free',
+        messages: [{ role: 'user', content: buildPrompt(data) }],
+        max_tokens: 8192
       })
     });
 
@@ -172,18 +176,17 @@ async function generate() {
     clearInterval(iv);
 
     if (!res.ok) {
-      throw new Error(result.error?.message || 'API error');
+      throw new Error(result.error?.message || `Error ${res.status}`);
     }
 
-    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    // Bersihkan markdown code fence jika ada
+    const text = result.choices?.[0]?.message?.content || '';
     const clean = text.replace(/```html?/gi, '').replace(/```/g, '').trim();
     showPreview(data, clean);
 
   } catch (err) {
     clearInterval(iv);
     console.error(err);
-    showPreview(data, `<p><strong>⚠️ Terjadi error:</strong> ${err.message}</p><p>Silakan coba lagi atau periksa konsol browser (F12) untuk detail.</p>`);
+    showPreview(data, `<p><strong>⚠️ Terjadi error:</strong> ${err.message}</p><p>Periksa konsol browser (F12) untuk detail.</p>`);
   }
 }
 
@@ -224,20 +227,4 @@ function resetAll() {
   document.getElementById('saved-state').style.display = 'none';
   document.getElementById('loading-state').style.display = 'block';
   goStep(1);
-}
-
-function getFallback(data) {
-  const tpList = data.tp.split('\n').filter(l => l.trim()).map(l => `<li>${l.trim()}</li>`).join('');
-  return `<h2>Identifikasi Peserta Didik</h2>
-<p><strong>Kesiapan Belajar:</strong> Peserta didik telah memiliki pengetahuan dasar terkait ${data.tema}.</p>
-<p><strong>Minat:</strong> Antusias terhadap pembelajaran menggunakan media visual dan diskusi kelompok.</p>
-<p><strong>Dimensi Profil Lulusan:</strong> <span class="tag">DPL1 Keimanan & Ketakwaan</span><span class="tag">DPL2 Kewargaan</span><span class="tag">DPL5 Kolaborasi</span></p>
-<h2>Desain Pembelajaran</h2>
-<p><strong>Tujuan Pembelajaran:</strong></p><ul>${tpList}</ul>
-<p><strong>Strategi:</strong> ${data.strategis.join(', ') || 'Problem Based Learning'}</p>
-<p><strong>Integrasi Nilai Islam:</strong> Mensyukuri karunia Allah SWT atas segala ciptaan-Nya.</p>
-<h2>Langkah Pembelajaran</h2>
-<p>⚠️ Koneksi ke AI gagal. Pastikan API key sudah diisi dengan benar di file app.js, lalu coba lagi.</p>
-<h2>Catatan</h2>
-<p>Jika masalah berlanjut, periksa konsol browser (F12) untuk detail error.</p>`;
 }
