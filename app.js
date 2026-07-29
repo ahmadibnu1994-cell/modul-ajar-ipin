@@ -166,7 +166,7 @@ async function generate() {
         'X-Title': 'Generator Modul Ajar SD IPIN'
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.0-flash-exp:free',
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         messages: [{ role: 'user', content: buildPrompt(data) }],
         max_tokens: 8192
       })
