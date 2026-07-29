@@ -2,10 +2,10 @@
 // GANTI INI DENGAN API KEY GEMINI KAMU
 // Dapatkan di: aistudio.google.com/apikey
 // =============================================
-const GEMINI_API_KEY = 'AQ.Ab8RN6LVTKpDDkrA_t6yX7dUV2Dx2MZNfleGqSEv4Czuy-HjJg';
+const GEMINI_API_KEY = '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';
 // =============================================
 
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_URL = `https://openrouter.ai/api/v1/chat/completions`;
 
 let currentLevel = 'Sedang';
 
