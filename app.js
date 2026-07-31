@@ -167,7 +167,7 @@ async function generate() {
         'X-Title': 'Generator Modul Ajar SD IPIN'
       },
       body: JSON.stringify({
-        model: 'mistralai/mistral-7b-instruct:free',
+        model: 'openai/gpt-oss-20b:free',
         messages: [{ role: 'user', content: buildPrompt(data) }],
         max_tokens: 8192
       })
