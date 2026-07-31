@@ -2,7 +2,7 @@
 // GANTI INI DENGAN API KEY OPENROUTER KAMU
 // Dapatkan di: openrouter.ai/keys
 // =============================================
-const OPENROUTER_API_KEY = 'MASUKKAN_API_KEY_OPENROUTER_DI_SINI';
+const OPENROUTER_API_KEY = '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';
 // =============================================
 
 let currentLevel = 'Sedang';
